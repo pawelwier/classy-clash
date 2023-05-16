@@ -1,10 +1,10 @@
 #include "raylib.h"
 #include "BaseCharacter.h"
 
-class Character : public BaseCharacter
+class Enemy : public BaseCharacter
 {
 public:
-    Character(int windowWidth, int windowHeight);
+    Enemy(Vector2 pos, Texture2D idleTexture, Texture2D runTexture);
     virtual void tick(float deltaTime) override;
 
 private:

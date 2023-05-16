@@ -1,7 +1,8 @@
-#include "Character.h"
-#include "Prop.h"
 #include "raylib.h"
 #include "raymath.h"
+#include "Character.h"
+#include "Prop.h"
+#include "Enemy.h"
 
 int main()
 {
@@ -16,6 +17,11 @@ int main()
 
     Texture2D rockTexture = LoadTexture("nature_tileset/Rock.png");
     Texture2D logTexture = LoadTexture("nature_tileset/Log.png");
+    Texture2D goblinIdleTexture = LoadTexture("characters/goblin_idle_spritesheet.png");
+    Texture2D goblinRunTexture = LoadTexture("characters/goblin_run_spritesheet.png");
+
+    Enemy goblin(Vector2{}, goblinIdleTexture, goblinRunTexture);
+
     Prop rock{rockTexture, Vector2{400.f, 290.f}};
 
     Prop props[2]{
@@ -55,6 +61,8 @@ int main()
                 knight.undoMovement();
             }
         };
+
+        goblin.tick(GetFrameTime());
 
         EndDrawing();
     }

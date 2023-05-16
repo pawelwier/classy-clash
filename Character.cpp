@@ -14,7 +14,7 @@ Character::Character(int windowWidth, int windowHeight)
 
 void Character::tick(float deltaTime)
 {
-    worldPosLastFrame = worldPos;
+    BaseCharacter::tick(deltaTime);
 
     Vector2 direction{};
 
@@ -33,29 +33,4 @@ void Character::tick(float deltaTime)
     }
     else
         texture = idle;
-
-    runningTime += deltaTime;
-    if (runningTime >= updateTime)
-    {
-        frame > maxFrames ? frame = 0 : frame++;
-        runningTime = 0;
-    }
-
-    Rectangle knightSource{width * frame, 0.f, rightLeft * width, height};
-    Rectangle knightDest{screenPos.x, screenPos.y, scale * width, scale * height};
-    DrawTexturePro(texture, knightSource, knightDest, Vector2{}, 0.0, WHITE);
 };
-
-void Character::undoMovement() {
-    worldPos = worldPosLastFrame;
-}
-
-Rectangle Character::getCollisionRec()
-{
-    return Rectangle{
-        screenPos.x,
-        screenPos.y,
-        width * scale,
-        height * scale
-    };
-}
