@@ -15,7 +15,13 @@ int main()
     Character knight{dimensions[0], dimensions[1]};
 
     Texture2D rockTexture = LoadTexture("nature_tileset/Rock.png");
+    Texture2D logTexture = LoadTexture("nature_tileset/Log.png");
     Prop rock{rockTexture, Vector2{400.f, 290.f}};
+
+    Prop props[2]{
+        Prop{rockTexture, Vector2{400.f, 290.f}},
+        Prop{logTexture, Vector2{600.f, 440.f}},
+    };
     
     SetTargetFPS(60);
 
@@ -28,7 +34,10 @@ int main()
 
         DrawTextureEx(map, mapPos, 0.0, mapScale, WHITE);
 
-        rock.render(knight.getWorldPos());
+        for (Prop prop : props)
+        {
+            prop.render(knight.getWorldPos());
+        };
 
         knight.tick(GetFrameTime());
         if (knight.getWorldPos().x < 0.f ||
@@ -38,6 +47,14 @@ int main()
         {
             knight.undoMovement();
         }
+
+        for (Prop prop : props)
+        {
+            if (CheckCollisionRecs(knight.getCollisionRec(), prop.getCollisionRec(knight.getWorldPos())))
+            {
+                knight.undoMovement();
+            }
+        };
 
         EndDrawing();
     }

@@ -7,9 +7,9 @@ Character::Character(int windowWidth, int windowHeight)
     width = texture.width / maxFrames;
     height = texture.height;
     screenPos = {
-            static_cast<float>(windowWidth) / 2.f - 0.5f * scale * width,
-            static_cast<float>(windowHeight) / 2.f - 0.5f * scale * height
-        };
+        static_cast<float>(windowWidth) / 2.f - 0.5f * scale * width,
+        static_cast<float>(windowHeight) / 2.f - 0.5f * scale * height
+    };
 }
 
 void Character::tick(float deltaTime)
@@ -48,4 +48,14 @@ void Character::tick(float deltaTime)
 
 void Character::undoMovement() {
     worldPos = worldPosLastFrame;
+}
+
+Rectangle Character::getCollisionRec()
+{
+    return Rectangle{
+        screenPos.x,
+        screenPos.y,
+        width * scale,
+        height * scale
+    };
 }
