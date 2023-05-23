@@ -29,6 +29,8 @@ int main()
         Prop{logTexture, Vector2{600.f, 440.f}},
     };
     
+    goblin.setTarget(&knight);
+
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
